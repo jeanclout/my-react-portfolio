@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# Персональное Портфолио на React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Это одностраничное приложение (SPA) на React, представляющее собой персональное портфолио с использованием React Router для навигации между разделами и Tailwind CSS для стилизации.
 
-## Available Scripts
+## Содержание
 
-In the project directory, you can run:
+* [Разделы Портфолио](#разделы-портфолио)
+* [Требования к Реализации](#требования-к-реализации)
+* [Локальный Запуск](#локальный-запуск)
+* [Контейнеризация с Docker](#контейнеризация-с-docker)
+* [Структура Проекта](#структура-проекта)
+* [Скриншоты](#скриншоты)
+* [Контакты](#контакты)
 
-### `npm start`
+## Разделы Портфолио
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Приложение включает следующие ключевые разделы:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* **Заголовок (Header):** Имя, фамилия, должность/специальность, а также навигация по основным разделам страницы.
+* **Фото и краткая биография (About):** Фотография и несколько предложений об образовании, опыте и интересах.
+* **Навыки (Skills):** Список ключевых навыков с визуальными индикаторами уровня (прогресс-бары).
+* **Опыт работы и образование (Experience / Education):** Хронологически выстроенные карточки с информацией о местах работы и обучения.
+* **Контакты (Contact):** Форма обратной связи (имя, e-mail, сообщение) и ссылки на социальные сети (GitHub, LinkedIn).
+* **Подвал (Footer):** Копирайт и дополнительная навигационная информация.
 
-### `npm test`
+## Требования к Реализации
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* Приложение разработано как SPA с использованием **Create React App**.
+* Используются **функциональные компоненты** и **React Hooks** (`useState` для управления состоянием, например, для формы контактов).
+* Стилизация выполнена с помощью **Tailwind CSS** для обеспечения адаптивного и современного дизайна. Tailwind CSS подключен через CDN в `public/index.html`.
+* **React Router (`react-router-dom`)** используется для маршрутизации, позволяя переключаться между "страницами" (разделами) без полной перезагрузки.
+* Код организован в модульную структуру с отдельными компонентами для каждого раздела (`Header.js`, `About.js` и т.д.).
+* Иконки предоставлены библиотекой `lucide-react`.
+* Шрифт "Inter" используется для всего проекта, подключен через CDN.
 
-### `npm run build`
+## Локальный Запуск
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Для запуска приложения на вашей локальной машине (без Docker):
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1.  **Клонируйте репозиторий:**
+    ```bash
+    git clone <https://github.com/jeanclout/my-react-portfolio>
+    cd my-portfolio # Перейдите в папку проекта (замените на имя вашей папки)
+    ```
+2.  **Установите зависимости:**
+    ```bash
+    npm install
+    ```
+3.  **Запустите приложение:**
+    ```bash
+    npm start
+    ```
+    Приложение будет доступно по адресу `http://localhost:3000` в вашем браузере.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Контейнеризация с Docker
 
-### `npm run eject`
+Для сборки и запуска приложения в Docker-контейнере:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1.  **Убедитесь, что у вас установлен Docker Desktop** и он запущен.
+2.  **Перейдите в корневую директорию проекта** в терминале/командной строке (там, где находятся `Dockerfile`, `docker-compose.yml` и `nginx.conf`).
+3.  **Сборка Docker-образа:**
+    ```bash
+    docker-compose build
+    ```
+    Эта команда соберет образ, используя `Dockerfile` и `nginx.conf`.
+4.  **Запуск Docker-контейнера:**
+    ```bash
+    docker-compose up -d
+    ```
+    Эта команда запустит контейнер в фоновом режиме.
+5.  **Проверка запуска:**
+    * Откройте `http://localhost` в вашем браузере. Вы должны увидеть запущенное портфолио.
+    * Для просмотра запущенных контейнеров: `docker ps`
+    * Для остановки контейнера: `docker-compose down` (остановит и удалит контейнер).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Структура Проекта
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+my-portfolio/
+├── public/
+│   └── index.html  # Обновлен для Tailwind CSS CDN и шрифта Inter
+├── src/
+│   ├── App.js      # Основной файл с маршрутизацией
+│   ├── Header.js   # Компонент шапки
+│   ├── About.js    # Компонент "Обо мне"
+│   ├── Skills.js   # Компонент "Навыки"
+│   ├── Experience.js # Компонент "Опыт работы и образование"
+│   ├── Contact.js  # Компонент "Контакты"
+│   ├── Footer.js   # Компонент подвала
+│   └── index.js    # Точка входа React (без импортов CSS)
+├── Dockerfile      # Инструкции для сборки Docker-образа
+├── docker-compose.yml # Конфигурация для запуска сервисов Docker
+├── nginx.conf      # Конфигурация Nginx для Docker-образа
+├── package.json
+└── README.md       # Этот файл
+## Скриншоты
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Здесь вы можете вставить ссылки на скриншоты вашего работающего приложения (запущенного как локально, так и через Docker) для демонстрации функциональности.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
